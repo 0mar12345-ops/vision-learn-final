@@ -4,7 +4,7 @@ import speech_recognition as sr
 from openai import OpenAI
 
 # ?? Your API key (rotate after demo)
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="YOUR_API_KEY_HERE")
 
 r = sr.Recognizer()
 r.pause_threshold = 0.8
