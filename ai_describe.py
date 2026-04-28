@@ -1,7 +1,12 @@
 from openai import OpenAI
 import base64
+from dotenv import load_dotenv
+import os
 
-client = OpenAI(api_key="YOUR_API_KEY_HERE")
+load_dotenv()
+
+client = 
+OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def describe_image(path):
     with open(path, "rb") as f:
