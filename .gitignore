@@ -1,2 +1,7 @@
 .env
 speech.mp3
+__pycache__/
+*.pyc
+*.jpg
+*.mp3
+*~
