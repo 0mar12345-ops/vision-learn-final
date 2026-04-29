@@ -7,14 +7,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# API key 
+ 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 r = sr.Recognizer()
 r.pause_threshold = 0.8
 r.dynamic_energy_threshold = True
 
-# HUMAN VOICE OUTPUT
+
 def speak(text: str):
     if not text:
         return
@@ -27,13 +27,13 @@ def speak(text: str):
         )
         f.write(audio.read())
 
-    # Hide audio spam
+    
     os.system("mpg123 -q speech.mp3 2>/dev/null")
 
 
 print("Vision AI Ready...")
 
-# CONVERSATION MEMORY + HUMAN STYLE
+
 conversation = [
     {
         "role": "system",
@@ -49,27 +49,27 @@ conversation = [
 while True:
     try:
         with sr.Microphone() as source:
-            # HIDE ALSA WARNINGS
+            
             sys.stderr = open(os.devnull, 'w')
 
             print("\nListening...")
             r.adjust_for_ambient_noise(source, duration=1)
 
-            # FASTER + MORE RESPONSIVE
+            
             audio = r.listen(source, timeout=5, phrase_time_limit=4)
 
         user_text = r.recognize_google(audio)
         print("You:", user_text)
 
-        # EXIT COMMAND
+        
         if user_text.lower() in ["stop", "exit", "quit", "goodbye"]:
             speak("Goodbye.")
             break
 
-        # SAVE USER MESSAGE
+        
         conversation.append({"role": "user", "content": user_text})
 
-        # AI RESPONSE
+        
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=conversation,
@@ -83,10 +83,10 @@ while True:
 
         print("AI:", reply)
 
-        # SAVE AI RESPONSE
+        
         conversation.append({"role": "assistant", "content": reply})
 
-        # SPEAK
+        
         speak(reply)
 
     except sr.UnknownValueError:
